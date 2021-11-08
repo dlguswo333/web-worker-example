@@ -32,7 +32,7 @@ function sort(){
     container.innerText=`Sorting...`;
     array=array.sort((a, b)=> a-b);
 
-    container.innerText=`Took ${Date.now()-start_time} ms\n\n`;
+    container.innerText=`Sorting ${array.length} items took ${Date.now()-start_time} ms\n\n`;
 }
 document.getElementById('sort_button').onclick=sort;
 
@@ -52,7 +52,7 @@ function worker_sort(){
     console.log(`post time: ${now-start_time} ms, ${now}, ${start_time}`);
     worker.onmessage=(e)=>{
         array=e.data;
-        container.innerText=`Took ${Date.now()-start_time} ms`;
+        container.innerText=`Sorting ${array.length} items took ${Date.now()-start_time} ms\n\n`;
     }
 }
 document.getElementById('worker_sort_button').onclick=worker_sort;
