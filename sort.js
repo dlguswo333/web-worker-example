@@ -16,12 +16,12 @@ function populate(){
 
     function generate(len){
         for(let i=0;i<len;++i){
-            const val=Math.floor(Math.random() * (10**10)); //최댓값은 제외, 최솟값은 포함
+            const val=Math.floor(Math.random() * (10**10));
             array[i]=val;
         }
     }
     generate(length);
-    
+
     container.innerText=`Populated an array of length ${length}`;
 }
 document.getElementById('populate_button').onclick=populate;
@@ -41,7 +41,7 @@ function worker_sort(){
     container.innerText=`Web Worker sorting...`;
     let now=Date.now();
     const start_time=Date.now();
-    /** 
+    /**
      * Create worker instance with javascript file path as an argument.
      * Can also pass a string of javascript code instead of a file path.
      */
