@@ -1,15 +1,19 @@
-/** @type {number[]} */
-var array = null;
+/** @type {Uint32Array} */
+let array = null;
 
 function populate(){
     let length=document.getElementById('length').value;
     try{
         length=parseInt(length);
-        if(!Number.isInteger(length))
-        throw Error('error');
+        if(!Number.isInteger(length)){
+            throw Error('Array length must be an integer!');
+        }
+        if(length < 0){
+            throw Error('Array length must be 0 or larger!');
+        }
     }catch(e){
         let container=document.getElementById('container');
-        container.innerText='length invalid';
+        container.innerText='Invalid array length';
         return;
     }
     array = new Uint32Array(length);
@@ -29,7 +33,7 @@ document.getElementById('populate_button').onclick=populate;
 function sort(){
     const start_time=Date.now();
     let container=document.getElementById('container');
-    container.innerText=`Sorting...`;
+    container.innerText=`Main worker sorting...`;
     array=array.sort((a, b)=> a-b);
 
     container.innerText=`Sorting ${array.length} items took ${Date.now()-start_time} ms\n\n`;
@@ -38,7 +42,7 @@ document.getElementById('sort_button').onclick=sort;
 
 function worker_sort(){
     let container=document.getElementById('container');
-    container.innerText=`Web Worker sorting...`;
+    container.innerText=`Web worker sorting...`;
     let now=Date.now();
     const start_time=Date.now();
     /**
@@ -46,10 +50,8 @@ function worker_sort(){
      * Can also pass a string of javascript code instead of a file path.
      */
     const worker=new Worker('./sort_worker.js');
-    console.log(`worker time: ${now-start_time} ms, ${now}, ${start_time}`);
     worker.postMessage(array);
     now=Date.now();
-    console.log(`post time: ${now-start_time} ms, ${now}, ${start_time}`);
     worker.onmessage=(e)=>{
         array=e.data;
         container.innerText=`Sorting ${array.length} items took ${Date.now()-start_time} ms\n\n`;
@@ -61,6 +63,6 @@ function validate(){
     let result=true;
     array.reduce((prev, cur)=>{if(prev>cur) result=false; return cur;});
     let container=document.getElementById('container');
-    container.innerText=`${result? 'Array is sorted state.' : 'Array is not sorted.'}`;
+    container.innerText=`${result? 'Array is sorted.' : 'Array is not sorted.'}`;
 }
 document.getElementById('validate_button').onclick=validate;
