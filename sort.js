@@ -45,15 +45,13 @@ function worker_sort(){
     container.innerText=`Web worker sorting...`;
     let now=Date.now();
     const start_time=Date.now();
-    /**
-     * Create worker instance with javascript file path as an argument.
-     * Can also pass a string of javascript code instead of a file path.
-     */
+    // Create worker instance with javascript file path as an argument.
+    // Can also pass a string of javascript code instead of a file path.
     const worker=new Worker('./sort_worker.js');
     worker.postMessage(array);
-    now=Date.now();
     worker.onmessage=(e)=>{
         array=e.data;
+        now=Date.now();
         container.innerText=`Sorting ${array.length} items took ${Date.now()-start_time} ms\n\n`;
     }
 }
