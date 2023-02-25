@@ -5,6 +5,5 @@ This repository is an example project to test
 ![example.png](example.png)
 
 ## How to Run
-Simply upload the whole repository on the local web server
-and open `sort.html`. I recommend `python -m http.server`
-if you have Python installed.
+Serve `src/` folder on the local web server and open `index.html` on browser.
+I would recommend `python -m http.server` if you have Python installed.
