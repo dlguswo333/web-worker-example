@@ -7,3 +7,5 @@ This repository is an example project to test
 ## How to Run
 Serve `src/` folder on the local web server and open `index.html` on browser.
 I would recommend `python -m http.server` if you have Python installed.
+
+Also you can view the running result in github pages: <https://dlguswo333.github.io/web-worker-example/>
